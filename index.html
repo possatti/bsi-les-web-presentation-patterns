@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Distribution Patterns</title>
+
+		<meta name="description" content="Apresentação de Distributions Patterns">
+		<meta name="author" content="Lucas Caetano Possatti">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown><script type="text/template">
+
+# WEB PRESENTATION PATTERNS
+
+Palestrante: Lucas Caetano Possatti
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+# 1. MVC
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+![](./img/no-uml-diagrams.jpg)
+
+*We dont need no stinking badges*
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+ - Em casos simples, o Facade pode representar um único objeto.
+ - Em casos mais complexos, o Facade pode representar vários objetos.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Classe de endereço anêmica
+
+```
+public class Endereco {
+	private String cep;
+	private String pais;
+	private String estado;
+	private String cidade;
+	private String rua;
+	private Integer numero;
+	// ... gets e sets.
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+
+> "In many ways, a Data Transfer Object is one of those objects our mothers told us never to write."
+
+> "The value of this usually hateful beast is that it allows you to move several pieces of information over a network in a single call — a trick that's essential for
+dis tributed systems." <!-- .element: class="fragment" data-fragment-index="1" -->
+
+> — Martin Fowler <!-- .element: class="fragment" data-fragment-index="2" -->
+
+</script></section><section data-markdown><script type="text/template">
+
+# Obrigado! :)
+
+</script></section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
+
