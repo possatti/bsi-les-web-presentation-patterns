@@ -6,7 +6,7 @@
 
 		<title>Distribution Patterns</title>
 
-		<meta name="description" content="Apresentação de Distributions Patterns">
+		<meta name="description" content="Apresentação de Web Presentation Patterns">
 		<meta name="author" content="Lucas Caetano Possatti">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -48,7 +48,281 @@ Palestrante: Lucas Caetano Possatti
 
 <!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
 
-# 1. MVC
+# 1. Model View Controller (MVC)
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+Divide a interação com a interface de usuário em três papéis distintos.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+![](./img/mvc.png)
+
+*MVC*
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Como funciona?
+ - O "model" é um objeto que representa o domínio da aplicação.
+ - A "view" representa como o modelo será exibido na interface.
+ - O "controller" recebe a entrada do usuário, manipula o modelo e atualiza a visão.
+ - A visão depende do modelo, mas não o contrário.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Porquê separar o modelo da visão?
+ - Fundamentalmente, são coisas diferentes.
+ - Pode ser necessário criar mais uma forma de apresentação do modelo.
+ - Testar coisas não visuais é muito mais fácil.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+ > "A separação de modelo e visão é óbvia, mas onde está o controlador?"
+
+ > — Martin Fowler
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Porquê separar o controlador da visão?
+ - Essa separação é menos importante.
+ - Muitas vezes, no passado, essa distinção não era colocada em prática.
+ - Muitas frameworks de GUIs combinam visão e controlador em uma coisa só.
+ - Com a popularização de sistemas Web, essas separação veio a ser muito útil novamente.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Quando usar o MVC?
+ - Principalmente quando você quiser separar a visão do modelo.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+# 2. Page Controller
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+Um objeto que trata uma requisição para um página específica ou uma ação em um Web site.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+![](./img/page-controller.png)
+
+*Page Controller*
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Como funciona?
+ - Um controlador para cada página do site.
+ - O controlador pode ser a própria página, ou um objeto separado que corresponda àquela página.
+ - Usar páginas de servidor (ASP, PHP, JSP) geralmente envolve combinar Page Controller com o Template View.
+ - É possível usar um objeto auxiliar que lide com a lógica necessária.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### As responsabilidades de um Page Controller:
+ - Decodificar a URL e extrair os dados necessários.
+ - Criar ou trazer qualquer objeto do modelo que deva processar os dados.
+ - Determinar qual view deve exibir o resultado e passar o modelo para ela.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Quando usar?
+ - O principal ponto de decisão é escolher o Page Controller ou o Front Controller.
+ - O Page Controller é mais familiar e mais simples.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+# 3. Front Controller
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+Um controlador que trata todas as requisições de um Web site.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+![](./img/front-controller.png)
+
+*Front Controller*
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Porquê gerenciar tudo em um único objeto?
+ - Em uma aplicação grande há muito comportamento em comum.
+ - Questões de segurança, internacionalização, e controle de acesso.
+ - Se o controlador for espalhado em vários objetos, muito código pode acabar duplicado.
+ <!-- - O controlador principal depois distribui -->
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Como funciona?
+ - Um controlador recebe todas as requisições.
+ - Geralmente está dividido em duas partes:
+   - um "Web handler"
+   - uma hierarquia de comandos que lidam com comportamento específicos.
+ - A estrutura dos comandos pode ser estática ou dinâmica.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+![](./img/front-controller-2.png)
+
+*Sequência da execução de um Front Controller*
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Quando usar o Front Controller?
+ - Ele é mais complicado que o Page Controller.
+ - Mas apenas um Front Controller precisa ser configurado no Web server.
+ - Evita um pouco de código duplicado do Page Controller.
+ - Apesar de que você poderia criar uma super-classe para os Page Controllers.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+# 4. Template View
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+Renderiza informação para HTML ao embutir marcadores em uma página HTML.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+![](./img/template-view.png)
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Exemplo: Handlebars
+
+```html
+<div class="entry">
+  <h1>{{title}}</h1>
+  <div class="body">
+    {{body}}
+  </div>
+</div>
+```
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Como funciona?
+ - Marcadores são embutidos em páginas HTML.
+ - Quando a página é processada, os marcadores são substituídos por conteúdo dinâmico.
+ - Uma das formas mais populares de Template View são páginas de servidor como ASP, JSP, e PHP.
+ - Tentar evitar scriptlets nas páginas (ex. vários IFs) em favor de usar um Template View mais puro.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Quando usar?
+ - Para implementar views, as duas maiores escolhas são: Template View e Transform View.
+ - O Template View permite que você crie o conteúdo da páginas ao observar sua estrutura.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+# 5. Transform View
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+Uma view que processa dados do domínio, elemento por elemento, transformando-os em HTML.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+![](./img/transform-view.png)
+
+*Transform View*
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Como funciona?
+ - A ideia é converter dados do domínio em HTML.
+ - XSLT é muito usado. Mas é possível usar qualquer linguagem de programação.
+ - Para usar XSLT precisamos dos dados em XML. Dentre várias outras formas, podemos usar um DTO pra isso.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Quando usar o Template View e o Transform View?
+ - Isso acaba caindo em uma questão de gosto.
+ - Porém não exitem muitas ferramentas para trabalhar com XSLT como existem para HTML.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Benefícios do Template View:
+ - Ajuda a evitar colocar muita lógica na view.
+ - Mais fácil de testar.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+# 6. Two Step View
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+Torna dados de domínio em HTML em duas etapas:
+ - primeiro formando tipo uma página lógica,
+ - e depois renderizando-a em uma página HTML.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+![](./img/two-step-view.png)
+
+*Two Step View*
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Como funciona?
+ - O primeiro estágio monta a informação em uma estrutura de tela lógica que sugere os elementos usados.
+ - O segundo estágio usa a estrutura lógica para renderizar HTML.
+ - As páginas lógicas podem conter campos, cabeçalhos, rodapés, tabelas, escolhas e coisas do tipo.
+ - Uma das possibilidades é usar XLST nas duas etapas.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Quando usar?
+ - Quando a separação das duas etapas for útil.
+ - Aplicações de multi-aparência.
+ - Aplicações de aparencia única.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 7. Application Controller
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+Um ponto centralizado para tratar a navegação da tela e o fluxo da aplicação.
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+![](./img/application-controller.png)
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Porque usar?
+ - Algumas aplicações envolvem uma lógica complexa na transição das telas.
+ - Exemplos:
+   - Wizards (sequências de telas)
+   - Telas que só aparecem sob certas circunstâncias
+ - 
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+### Como funciona?
+ - 
+ - 
+
+<!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
+
+# @!#$@!#$@#$@#!$@#!$@#$@#!$@#$@#!
 
 <!-- ========================================= --> </script></section><section data-markdown><script type="text/template">
 
@@ -109,7 +383,7 @@ dis tributed systems." <!-- .element: class="fragment" data-fragment-index="1" -
 				history: true,
 				center: true,
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
 
 				// Optional reveal.js plugins
 				dependencies: [
